@@ -1,0 +1,96 @@
+/* Set the width of the page to the device width */
+html, body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Set the font size to 16px */
+  html {
+    font-size: 16px;
+  }
+  
+  /* Use a single column layout */
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Use a max width of 600px to avoid stretching the layout too much */
+  @media only screen and (min-width: 600px) {
+    .container {
+      max-width: 600px;
+    }
+  }
+  
+  /* Use a legible font */
+  body {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    color: #333;
+  }
+  
+  /* Add some padding to the top and bottom of the container */
+  .container {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+  
+  /* Add some margin to the top and bottom of each form input */
+  form {
+    margin: 0.5rem 0;
+  }
+  
+  /* Use a simple design */
+  label {
+    font-weight: bold;
+  }
+  
+  input[type="text"] {
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    border: 1px solid #ccc;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  select {
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    border: 1px solid #ccc;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  button {
+    background-color: #333;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 1rem;
+  }
+  
+  /* Hide the refresh button on iOS Safari */
+::-webkit-backdrop {
+  visibility: hidden !important;
+}
+
+/* Show the refresh button when the user scrolls up */
+body {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
+body.scroll-up {
+  position: relative;
+}
+
+body.scroll-up::-webkit-backdrop {
+  visibility: visible !important;
+}
