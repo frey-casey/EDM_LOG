@@ -136,7 +136,8 @@ endOfDayBtn.addEventListener('click', function() {
   serviceData.forEach(function(item) {
     const startTime = moment(item.startTime).format('h:mm a');
     const endTime = moment(item.endTime).format('h:mm a');
-    const procedureSummary = `${item.machineNumber}: ${item.serviceProcedure} - ${startTime} to ${endTime} (${item.notes})`;
+    const procedureSummary = `${item.machineNumber}: ${item.serviceProcedure} - ${startTime} to ${endTime} 
+    (${item.notes}) "${item.comments}"`;
     finalList.push(procedureSummary);
   });
 
@@ -169,7 +170,9 @@ endOfDayBtn.addEventListener('click', function() {
       serviceData.forEach(function(item) {
         const startTime = moment(item.startTime).format('h:mm a');
         const endTime = item.endTime ? moment(item.endTime).format('h:mm a') : 'In progress';
-        const procedureSummary = `‣  ${item.machineNumber}:   ${item.serviceProcedure}  -  ${startTime} to ${endTime}  (${item.notes}) "${item.comments}"`;
+        const procedureSummary = `‣  ${item.machineNumber}:   ${item.serviceProcedure}  -  ${startTime} to ${endTime}
+        (${item.notes}) "${item.comments}
+        "`;
         const listItem = document.createElement('li');
         listItem.textContent = procedureSummary;
         serviceList.appendChild(listItem);
