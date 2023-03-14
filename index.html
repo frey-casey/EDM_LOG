@@ -136,8 +136,11 @@ endOfDayBtn.addEventListener('click', function() {
   serviceData.forEach(function(item) {
     const startTime = moment(item.startTime).format('h:mm a');
     const endTime = moment(item.endTime).format('h:mm a');
-    const procedureSummary = `${item.machineNumber}: ${item.serviceProcedure} - ${startTime} to ${endTime} 
-    (${item.notes}) "${item.comments}"`;
+    const procedureSummary = `
+    
+    ‣ ${item.machineNumber}: ${item.serviceProcedure} - ${startTime} to ${endTime}
+     (${item.notes}) "${item.comments}"
+     `;
     finalList.push(procedureSummary);
   });
 
@@ -164,30 +167,36 @@ endOfDayBtn.addEventListener('click', function() {
 
 
     // Function to update the service list display
-    function displayServiceList() {
-      const serviceList = document.getElementById('service-list');
-      serviceList.innerHTML = '';
-      serviceData.forEach(function(item) {
-        const startTime = moment(item.startTime).format('h:mm a');
-        const endTime = item.endTime ? moment(item.endTime).format('h:mm a') : 'In progress';
-        const procedureSummary = `‣  ${item.machineNumber}:   ${item.serviceProcedure}  -  ${startTime} to ${endTime}
-        (${item.notes}) "${item.comments}
-        "`;
-        const listItem = document.createElement('li');
-        listItem.textContent = procedureSummary;
-        serviceList.appendChild(listItem);
-      });
-      // Enable the End of Day button if there are procedures in the list
-      endOfDayBtn.disabled = (serviceData.length === 0);
-    }
-    window.addEventListener('beforeunload', function (e) {
+function displayServiceList() {
+  const serviceList = document.getElementById('service-list');
+  serviceList.innerHTML = '';
+  serviceData.forEach(function(item) {
+    const startTime = moment(item.startTime).format('h:mm a');
+    const endTime = item.endTime ? moment(item.endTime).format('h:mm a') : 'In progress';
+    const procedureSummary = `‣  ${item.machineNumber}:   ${item.serviceProcedure}  -  ${startTime} to ${endTime}  (${item.notes}) "${item.comments}"`;
+    const listItem = document.createElement('li');
+    listItem.textContent = procedureSummary;
+    serviceList.appendChild(listItem);
+  });
+  // Enable the End of Day button if there are procedures in the list
+  endOfDayBtn.disabled = (serviceData.length === 0);
+
+  // Copy service list to clipboard
+  const listText = serviceList.innerText;
+  navigator.clipboard.writeText(listText)
+    .then(() => console.log('Service list copied to clipboard'))
+    .catch((err) => console.error('Error copying service list to clipboard:', err));
+}
+
+window.addEventListener('beforeunload', function (e) {
   e.preventDefault(); // Cancel the event
-  e.returnValue = ''; // Chrome requires returnValue to be set
+  e.returnValue = 'Are you sure you want to leave? You may lose unsaved data. But, the service list will be copied to your clipboard.'; // Chrome requires returnValue to be set
   // Display a confirmation message
-  var confirmationMessage = 'Are you sure you want to leave? You may lose unsaved data.';
+  var confirmationMessage = 'Are you sure you want to leave? You may lose unsaved data. But, the service list will be copied to your clipboard.';
   e.returnValue = confirmationMessage; // Set the confirmation message
   return confirmationMessage;
 });
+
 window.addEventListener('pagehide', function(event) {
   // Cancel the event to prevent the page from unloading
   event.preventDefault();
